@@ -6,8 +6,23 @@ body,
 }
 
 body {
-  background: #4b6cb7;
-  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
-  background: linear-gradient(to right, #182848, #4b6cb7);
+  background: #232526;
+  background: -webkit-linear-gradient(to right, #414345, #232526);
+  background: linear-gradient(to right, #414345, #232526);
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.cells-container {
+  width: 60%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(auto, auto));
+  grid-gap: 5px;
+}
+
+.cell {
+  height: 280px;
+  background-color: #202123;
 }
