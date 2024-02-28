@@ -6,23 +6,60 @@ body,
 }
 
 body {
-  background: #232526;
-  background: -webkit-linear-gradient(to right, #414345, #232526);
-  background: linear-gradient(to right, #414345, #232526);
   min-height: 100vh;
   display: flex;
   align-items: center;
+  background-color: #28282b;
 }
 
 .cells-container {
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, minmax(auto, auto));
-  grid-gap: 5px;
+  grid-template-columns: repeat(3, calc(100% / 3));
+  grid-gap: 10px;
+  background-color: whitesmoke;
 }
 
 .cell {
-  height: 280px;
-  background-color: #202123;
+  height: 240px;
+  background-color: #28282b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-icon,
+.svg-circle {
+  width: 80%;
+  height: 80%;
+  animation: bounce-in 0.9s ease;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: whitesmoke;
+}
+
+.svg-icon circle {
+  stroke: whitesmoke;
+  stroke-width: 1;
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
