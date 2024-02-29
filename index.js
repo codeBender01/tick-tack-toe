@@ -96,7 +96,6 @@ for (let el of cells) {
 for (let i = 0; i < cellMatrix.length; i++) {
   for (let j = 0; j < cellMatrix[i].length; j++) {
     cellMatrix[i][j].addEventListener("click", () => {
-      console.log(winHorizontal, winVertical, winDiagonal);
       if (winVertical || winHorizontal || winDiagonal) {
         return;
       }
