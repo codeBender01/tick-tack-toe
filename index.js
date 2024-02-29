@@ -21,6 +21,9 @@ c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"
 ></path>
 </svg> `;
 let cellMatrix = [];
+let winVertical = null;
+let winHorizontal = null;
+let winDiagonal = null;
 let scoreMatrix = [
   [null, null, null],
   [null, null, null],
@@ -29,7 +32,7 @@ let scoreMatrix = [
 let arr = [];
 let count = 0;
 
-function checkForWin() {
+function checkForWinHorizontal() {
   for (let i = 0; i < scoreMatrix.length; i++) {
     for (let j = 0; j < scoreMatrix[i].length; j++) {
       if (scoreMatrix[i][j]) {
@@ -37,13 +40,45 @@ function checkForWin() {
           scoreMatrix[i][j] === scoreMatrix[i][j + 1] &&
           scoreMatrix[i][j] === scoreMatrix[i][j + 2]
         ) {
-          console.log("huy");
+          return true;
         }
+      }
+    }
+  }
+}
+
+function checkForWinVertical() {
+  for (let i = 0; i < scoreMatrix.length - 2; i++) {
+    for (let j = 0; j < scoreMatrix[i].length; j++) {
+      if (scoreMatrix[i][j]) {
         if (
           scoreMatrix[i][j] === scoreMatrix[i + 1][j] &&
           scoreMatrix[i][j] === scoreMatrix[i + 2][j]
         ) {
-          console.log("pidor");
+          return true;
+        }
+      }
+    }
+  }
+}
+
+function checkForWinDiagonal() {
+  for (let i = 0; i < scoreMatrix.length - 2; i++) {
+    for (let j = 0; j < scoreMatrix[i].length; j++) {
+      if (scoreMatrix[i][j]) {
+        if (
+          scoreMatrix[i][j] === scoreMatrix[i + 1][j + 1] &&
+          scoreMatrix[i][j] === scoreMatrix[i + 2][j + 2]
+        ) {
+          return true;
+        }
+      }
+      if (scoreMatrix[i][j + 2]) {
+        if (
+          scoreMatrix[i][j + 2] === scoreMatrix[i + 1][j + 1] &&
+          scoreMatrix[i][j + 2] === scoreMatrix[i + 2][j]
+        ) {
+          return true;
         }
       }
     }
@@ -61,19 +96,28 @@ for (let el of cells) {
 for (let i = 0; i < cellMatrix.length; i++) {
   for (let j = 0; j < cellMatrix[i].length; j++) {
     cellMatrix[i][j].addEventListener("click", () => {
-      count++;
+      console.log(winHorizontal, winVertical, winDiagonal);
+      if (winVertical || winHorizontal || winDiagonal) {
+        return;
+      }
       if (count % 2 === 0) {
         if (cellMatrix[i][j].innerHTML === "") {
           cellMatrix[i][j].innerHTML = circle;
+          count++;
           scoreMatrix[i][j] = "circle";
-          checkForWin();
+          winHorizontal = checkForWinHorizontal();
+          winVertical = checkForWinVertical();
+          winDiagonal = checkForWinDiagonal();
         }
-        return;
       }
       if (cellMatrix[i][j].innerHTML === "") {
         cellMatrix[i][j].innerHTML = cross;
+        count++;
+
         scoreMatrix[i][j] = "cross";
-        checkForWin();
+        winHorizontal = checkForWinHorizontal();
+        winVertical = checkForWinVertical();
+        winDiagonal = checkForWinDiagonal();
       }
     });
   }
@@ -83,5 +127,13 @@ restartBtn.addEventListener("click", () => {
   cells.forEach((el) => {
     el.innerHTML = "";
   });
+  scoreMatrix = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ];
   count = 0;
+  winVertical = null;
+  winDiagonal = null;
+  winHorizontal = null;
 });
